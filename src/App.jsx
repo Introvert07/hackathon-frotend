@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './components/About';
-import ContactUs from './components/Contactus';
+import ContactUs from './components/ContactUs';
 import FirstRound from './components/FirstRound';
 import Guide from './components/Guide';
 import Hero from './components/Hero';
