@@ -32,17 +32,27 @@ const ContactUs = () => {
         />
 
         {/* Contact Info */}
-        <div className="mt-8 text-cyan-300">
+  <div className="mt-8 text-cyan-300">
   <p className="text-lg font-semibold mb-2">📞 Reach Out to Us:</p>
-  <div className="flex flex-wrap gap-8 text-sm md:text-base">
-    <p>
-      <span className="text-white font-bold">Member-1</span> — +91 98765 xxxxx
-    </p>
-    <p>
-      <span className="text-white font-bold">Member-2</span> — +91 91234 xxxxx
-    </p>
+  <div className="flex flex-col md:flex-row flex-wrap gap-4 md:gap-8 text-sm md:text-base">
+    
+    <div>
+      <p>
+        <span className="text-white font-bold">Mahesh Kushwah</span> — +91 87707 26065
+      </p>
+      <p className="text-gray-400 ml-1">5th Sem, ECE</p>
+    </div>
+    
+    <div>
+      <p>
+        <span className="text-white font-bold">Nikhil Kushwah</span> — +91 79872 60228
+      </p>
+      <p className="text-gray-400 ml-1">5th Sem, EE</p>
+    </div>
+
   </div>
 </div>
+
 
 
         {/* Social Icons */}

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaHome } from 'react-icons/fa'; // <- Home icon
+import { FaHome } from 'react-icons/fa';
 import gsap from 'gsap';
-import Hero from './Hero';
 
 const Navbar = () => {
   const navRef = useRef();
@@ -10,6 +9,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const sectionLinks = [
     { name: 'About', section: 'about' },
@@ -20,7 +20,6 @@ const Navbar = () => {
   ];
 
   const roundLinks = [
-  
     { name: 'First', path: '/first' },
     { name: 'Second', path: '/second' },
   ];
@@ -85,9 +84,11 @@ const Navbar = () => {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
+    setMenuOpen(false);
   };
 
   const handleHomeClick = () => {
+    setMenuOpen(false);
     if (location.pathname !== '/') {
       navigate('/');
     } else {
@@ -97,70 +98,99 @@ const Navbar = () => {
 
   return (
     <nav
-  ref={navRef}
-  className="fixed top-0 left-0 w-full z-[999] flex items-center justify-center py-4 shadow-md pt-5
-  bg-black bg-opacity-90 bg-transparent backdrop-blur-md border-b border-cyan-400"
->
+      ref={navRef}
+      className="fixed top-0 left-0 w-full z-[999] bg-black bg-opacity-90 backdrop-blur-md border-b border-cyan-400 shadow-md"
+    >
+      <div className="max-w-7xl mx-auto pl-40 flex items-center justify-between content-center px-4 py-3">
+      
+        {/* Home Icon */}
+        <div className="text-cyan-300  text-xl md:text-2xl">
+          <button
+            onClick={handleHomeClick}
+            className="hover:text-white transition-all duration-300"
+          >
+            <FaHome />
+          </button>
+        </div>
 
-      {/* Home Icon */}
-      <div className="absolute left-6">
-        <button
-          onClick={handleHomeClick}
-          className="text-cyan-300 hover:text-white transition-all duration-300 text-xl md:text-2xl"
+        
+
+        {/* Hamburger Icon */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="text-cyan-300 text-2xl"
+          >
+            {menuOpen ? '✖' : '☰'}
+          </button>
+        </div>
+
+        {/* Navigation Links */}
+        <ul
+          className={`${
+            menuOpen ? 'flex' : 'hidden'
+          } absolute top-full left-0 w-full flex-col items-center bg-black md:bg-transparent md:flex md:flex-row md:static md:space-x-12 space-y-4 md:space-y-0 px-4 py-4 md:py-0 font-orbitron text-cyan-300 text-sm md:text-base uppercase`}
         >
-          <FaHome />
-        </button>
+          {sectionLinks.map((link, i) => (
+            <li
+              key={link.section}
+              ref={(el) => (linkRefs.current[i] = el)}
+              onClick={() => handleSectionClick(link.section)}
+              className={`relative group cursor-pointer tracking-wider ${
+                activeLink === link.section ? 'text-white' : ''
+              }`}
+            >
+              <span
+                className={`transition duration-300 ${
+                  activeLink === link.section
+                    ? 'text-white'
+                    : 'group-hover:text-white'
+                }`}
+              >
+                {link.name}
+              </span>
+              <span
+                className={`absolute left-0 bottom-0 h-[2px] bg-cyan-400 transition-all duration-300 ${
+                  activeLink === link.section
+                    ? 'w-full'
+                    : 'w-0 group-hover:w-full'
+                }`}
+              ></span>
+            </li>
+          ))}
+
+          {roundLinks.map((link, i) => (
+            <li
+              key={link.path}
+              ref={(el) =>
+                (linkRefs.current[sectionLinks.length + i] = el)
+              }
+              onClick={() => setMenuOpen(false)}
+              className={`relative group cursor-pointer tracking-wider ${
+                location.pathname === link.path ? 'text-white' : ''
+              }`}
+            >
+              <Link
+                to={link.path}
+                className={`transition duration-300 ${
+                  location.pathname === link.path
+                    ? 'text-white'
+                    : 'group-hover:text-white'
+                }`}
+              >
+                {link.name}
+              </Link>
+              <span
+                className={`absolute left-0 bottom-0 h-[2px] bg-cyan-400 transition-all duration-300 ${
+                  location.pathname === link.path
+                    ? 'w-full'
+                    : 'w-0 group-hover:w-full'
+                }`}
+              ></span>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <ul className="flex space-x-6 md:space-x-12 font-orbitron text-cyan-300 text-sm md:text-base uppercase">
-        {sectionLinks.map((link, i) => (
-          <li
-            key={link.section}
-            ref={(el) => (linkRefs.current[i] = el)}
-            onClick={() => handleSectionClick(link.section)}
-            className={`relative group cursor-pointer tracking-wider ${
-              activeLink === link.section ? 'text-white' : ''
-            }`}
-          >
-            <span
-              className={`transition duration-300 ${
-                activeLink === link.section ? 'text-white' : 'group-hover:text-white'
-              }`}
-            >
-              {link.name}
-            </span>
-            <span
-              className={`absolute left-0 bottom-0 h-[2px] bg-cyan-400 transition-all duration-300 ${
-                activeLink === link.section ? 'w-full' : 'w-0 group-hover:w-full'
-              }`}
-            ></span>
-          </li>
-        ))}
-
-        {roundLinks.map((link, i) => (
-          <li
-            key={link.path}
-            ref={(el) => (linkRefs.current[sectionLinks.length + i] = el)}
-            className={`relative group cursor-pointer tracking-wider ${
-              location.pathname === link.path ? 'text-white' : ''
-            }`}
-          >
-            <Link
-              to={link.path}
-              className={`transition duration-300 ${
-                location.pathname === link.path ? 'text-white' : 'group-hover:text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-            <span
-              className={`absolute left-0 bottom-0 h-[2px] bg-cyan-400 transition-all duration-300 ${
-                location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'
-              }`}
-            ></span>
-          </li>
-        ))}
-      </ul>
     </nav>
   );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 const rounds = [
   {
     title: 'Round 0 — Team Formation',
-    description: 'Form a team of 3–4 members from any year. Submit idea name only.',
+    description: 'Form a team of 3–4 members from any year,  Submit idea name.',
     date: '📅 Last Date: 29 June, 12:00 PM',
   },
   {

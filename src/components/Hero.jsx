@@ -29,7 +29,7 @@ const Hero = () => {
     gsap.to(timelineRef.current, {
       xPercent: -50,
       ease: 'linear',
-      duration: 8,
+      duration: 6,
       repeat: -1,
     });
   }, []);
