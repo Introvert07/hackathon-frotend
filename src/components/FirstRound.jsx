@@ -27,33 +27,46 @@ const FirstRound = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    const payload = {
-      teamName: form.teamName,
-      pptLink: form.pptLink,
-      leaderName: form.teamLeader.name,
-      leaderPhone: form.teamLeader.phone,
-      leaderEmail: form.teamLeader.email
-    };
-
-    if (!payload.teamName || !payload.pptLink || !payload.leaderName || !payload.leaderPhone || !payload.leaderEmail) {
-      toast.error('Please fill all required fields');
-      return;
-    }
-
-    try {
-      const res = await axios.post(`${BASE_URL}/api/first`, payload);
-      toast.success(res.data.message || 'Submitted successfully');
-      setForm({
-        teamName: '',
-        pptLink: '',
-        teamLeader: { name: '', phone: '', email: '' }
-      });
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Submission failed');
-    }
+const handleSubmit = async () => {
+  const payload = {
+    teamName: form.teamName.trim(),
+    pptLink: form.pptLink.trim(),
+    leaderName: form.teamLeader.name.trim(),
+    leaderPhone: form.teamLeader.phone.trim(),
+    leaderEmail: form.teamLeader.email.trim()
   };
 
+  // Empty field check
+  if (!payload.teamName || !payload.pptLink || !payload.leaderName || !payload.leaderPhone || !payload.leaderEmail) {
+    toast.error('Please fill all required fields');
+    return;
+  }
+
+  // ✅ Mobile number validation (must be 10 digits)
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(payload.leaderPhone)) {
+    toast.error('Please enter a valid 10-digit phone number');
+    return;
+  }
+
+  // ✅ Email must end with "@satiengg.in"
+  if (!payload.leaderEmail.toLowerCase().endsWith('@satiengg.in')) {
+    toast.error('Please use your college email ending with @satiengg.in');
+    return;
+  }
+
+  try {
+    const res = await axios.post(`${BASE_URL}/api/first`, payload);
+    toast.success(res.data.message || 'Submitted successfully');
+    setForm({
+      teamName: '',
+      pptLink: '',
+      teamLeader: { name: '', phone: '', email: '' }
+    });
+  } catch (err) {
+    toast.error(err.response?.data?.message || 'Submission failed');
+  }
+};
   return (
     <section className="min-h-screen bg-black text-white px-4 py-10 flex items-center justify-center font-orbitron">
       <ToastContainer position="bottom-right" />

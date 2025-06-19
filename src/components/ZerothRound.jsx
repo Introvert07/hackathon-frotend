@@ -53,6 +53,38 @@ const ZerothRound = () => {
       return;
     }
 
+     // ✅ Check if leaderEmail ends with "@satiengg.in"
+  if (!form.leaderEmail.trim().toLowerCase().endsWith('@satiengg.in')) {
+    toast.error("Please use your college email");
+    return;
+  }
+
+
+  // ✅ Phone number must be exactly 10 digits and numeric
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(form.leaderPhone)) {
+    toast.error("Please enter a valid 10-digit mobile number.");
+    return;
+  }
+
+
+  // ✅ Enrollment format must be like 0108ec231014
+  const enrollmentRegex = /^0108[a-z]{2}\d{6}$/;
+  if (!enrollmentRegex.test(form.Enrollment.trim())) {
+    toast.error("Enrollment number is invalid");
+    return;
+  }
+
+  // ✅ Also check each team member's enrollment format
+  for (let i = 0; i < form.members.length; i++) {
+    const memberEnrollment = form.members[i].enrollment.trim();
+    if (!enrollmentRegex.test(memberEnrollment)) {
+      toast.error(`Member ${i + 1}'s enrollment number is invalid`);
+      return;
+    }
+  }
+
+
     try {
       const res = await axios.post(`${BASE_URL}/api/zeroth`, form);
       toast.success(res.data.message || "Registered Successfully!");

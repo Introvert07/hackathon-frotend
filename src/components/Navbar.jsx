@@ -99,7 +99,7 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 left-0 w-full z-[999] bg-black bg-opacity-90 backdrop-blur-md border-b border-cyan-400 shadow-md"
+      className="fixed top-0 left-0 w-full bg-tansparent z-[999] bg-black bg-opacity-90 backdrop-blur-md border-b border-cyan-400 shadow-md"
     >
       <div className="max-w-7xl mx-auto pl-40 flex items-center justify-between content-center px-4 py-3">
       
