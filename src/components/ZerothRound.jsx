@@ -106,14 +106,40 @@ const ZerothRound = () => {
       toast.error(err.response?.data?.message || 'Submission failed');
     }
   };
+  const [showRules, setShowRules] = useState(false);
+
 
   return (
+    
     <section className="min-h-screen bg-black text-white px-4 py-10 flex items-center justify-center font-orbitron">
+      
       <ToastContainer position="bottom-right" autoClose={3000} />
+
+
+      
       <div className="w-full max-w-3xl border-2 border-cyan-400 p-8 rounded-lg shadow-[0_0_25px_#22d3ee] bg-[#0b0b0b]">
         <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent mb-6 drop-shadow-lg">
           Zeroth Round Registration
         </h2>
+
+        <button
+  onClick={() => setShowRules(!showRules)}
+  className="mb-4 text-sm text-cyan-300 underline hover:text-purple-400"
+>
+  {showRules ? 'Hide' : 'View'} Registration Guidelines
+</button>
+
+{showRules && (
+  <div className="bg-[#111] border border-cyan-500 p-4 rounded text-sm text-cyan-100 space-y-2 mb-6">
+    <p>✅ <strong>Team Name:</strong> Must be unique.</p>
+    <p>✅ <strong>Team Size:</strong> 1 Leader + 2 to 3 Members.</p>
+    <p>✅ <strong>Enrollment Format: </strong>branch in lowercase like <code>ec</code>, <code>cs</code>, <code>it</code>, etc.</p>
+    <p>✅ <strong>Leader Phone:</strong> Must be a valid 10-digit number and available on WhatsApp.</p>
+    <p>✅ <strong>Leader Email:</strong> Use college mail-id<code></code>.</p>
+    <p>❌ <strong>No member can be in more than one team.</strong></p>
+  </div>
+)}
+
 
         <div className="space-y-4">
           <input
@@ -201,8 +227,13 @@ const ZerothRound = () => {
             Submit
           </button>
         </div>
+        
       </div>
+      
+      
     </section>
+
+    
   );
 };
 

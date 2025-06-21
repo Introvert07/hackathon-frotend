@@ -66,7 +66,7 @@ const SecondRound = () => {
             name="projectLink"
             value={form.projectLink}
             onChange={handleChange}
-            placeholder="Project Link (Google Drive or GitHub)"
+            placeholder="Project Link (Google Drive)"
             className="p-3 bg-transparent border border-cyan-300 text-cyan-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
 
