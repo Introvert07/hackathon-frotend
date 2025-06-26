@@ -4,23 +4,23 @@ const rounds = [
   {
     title: 'Round 0 — Team Formation',
     description: 'Form a team of 3–4 members from any year,  Submit idea name.',
-    date: '📅 Last Date: 29 June, 12:00 PM',
+    date: '📅 Last Date: 8 July, 11:59 PM',
   },
   {
     title: 'Round 1 — PPT Submission',
     description: 'Submit a PPT explaining your idea and approach.',
-    date: '📅 Last Date: 6 July, 11:59 PM',
+    date: '📅 Last Date: 12 July, 11:59 PM',
   },
   {
     title: 'Round 2 — Prototype Submission',
     description:
       'Submit your GitHub repo (preferred) or ZIP of the project with a demo video. Deployed project is a bonus.',
-    date: '📅 Last Date: 17 July, 11:59 PM',
+    date: '📅 Last Date: 22 July, 11:59 PM',
   },
   {
     title: 'Round 3 — Final Interview',
     description: 'Team interview based on project, clarity, and teamwork.',
-    date: '📅 Interview Date: 20 July',
+    date: '📅 Interview Date: 26 July',
   },
 ];
 
