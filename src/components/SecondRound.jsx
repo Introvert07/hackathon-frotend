@@ -11,6 +11,8 @@ const SecondRound = () => {
     projectLink: ''
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -24,10 +26,10 @@ const SecondRound = () => {
     }
 
     try {
+      setLoading(true); // start loading
       const res = await axios.post(`${BASE_URL}/api/second`, form);
       toast.success(res.data.message || 'Submission successful');
-      alert("Second round submitted successfully")
-
+      alert("Second round submitted successfully");
       setForm({
         teamName: '',
         leaderName: '',
@@ -35,6 +37,8 @@ const SecondRound = () => {
       });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Submission failed');
+    } finally {
+      setLoading(false); // stop loading
     }
   };
 
@@ -73,9 +77,14 @@ const SecondRound = () => {
 
           <button
             onClick={handleSubmit}
-            className="mt-6 bg-cyan-500 hover:bg-purple-400 transition px-6 py-3 rounded-full font-bold text-white border-2 border-cyan-300 shadow-md hover:shadow-glow-cyan"
+            disabled={loading}
+            className={`mt-6 transition px-6 py-3 rounded-full font-bold text-white border-2 border-cyan-300 shadow-md ${
+              loading
+                ? 'bg-gray-500 cursor-not-allowed'
+                : 'bg-cyan-500 hover:bg-purple-400 hover:shadow-glow-cyan'
+            }`}
           >
-            Submit
+            {loading ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </div>

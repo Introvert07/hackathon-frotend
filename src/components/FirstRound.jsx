@@ -11,6 +11,8 @@ const FirstRound = () => {
     teamLeader: { name: '', phone: '', email: '' }
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith('teamLeader.')) {
@@ -27,47 +29,48 @@ const FirstRound = () => {
     }
   };
 
-const handleSubmit = async () => {
-  const payload = {
-    teamName: form.teamName.trim(),
-    pptLink: form.pptLink.trim(),
-    leaderName: form.teamLeader.name.trim(),
-    leaderPhone: form.teamLeader.phone.trim(),
-    leaderEmail: form.teamLeader.email.trim()
+  const handleSubmit = async () => {
+    const payload = {
+      teamName: form.teamName.trim(),
+      pptLink: form.pptLink.trim(),
+      leaderName: form.teamLeader.name.trim(),
+      leaderPhone: form.teamLeader.phone.trim(),
+      leaderEmail: form.teamLeader.email.trim()
+    };
+
+    if (!payload.teamName || !payload.pptLink || !payload.leaderName || !payload.leaderPhone || !payload.leaderEmail) {
+      toast.error('Please fill all required fields');
+      return;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(payload.leaderPhone)) {
+      toast.error('Please enter a valid 10-digit phone number');
+      return;
+    }
+
+    if (!payload.leaderEmail.toLowerCase().endsWith('@satiengg.in')) {
+      toast.error('Please use your college email ending with @satiengg.in');
+      return;
+    }
+
+    try {
+      setLoading(true); // start loading
+      const res = await axios.post(`${BASE_URL}/api/first`, payload);
+      toast.success(res.data.message || 'Submitted successfully');
+      alert("First round submitted successfully");
+      setForm({
+        teamName: '',
+        pptLink: '',
+        teamLeader: { name: '', phone: '', email: '' }
+      });
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Submission failed');
+    } finally {
+      setLoading(false); // stop loading
+    }
   };
 
-  // Empty field check
-  if (!payload.teamName || !payload.pptLink || !payload.leaderName || !payload.leaderPhone || !payload.leaderEmail) {
-    toast.error('Please fill all required fields');
-    return;
-  }
-
-  // ✅ Mobile number validation (must be 10 digits)
-  const phoneRegex = /^\d{10}$/;
-  if (!phoneRegex.test(payload.leaderPhone)) {
-    toast.error('Please enter a valid 10-digit phone number');
-    return;
-  }
-
-  // ✅ Email must end with "@satiengg.in"
-  if (!payload.leaderEmail.toLowerCase().endsWith('@satiengg.in')) {
-    toast.error('Please use your college email ending with @satiengg.in');
-    return;
-  }
-
-  try {
-    const res = await axios.post(`${BASE_URL}/api/first`, payload);
-    toast.success(res.data.message || 'Submitted successfully');
-     alert("First round submitted successfully")
-    setForm({
-      teamName: '',
-      pptLink: '',
-      teamLeader: { name: '', phone: '', email: '' }
-    });
-  } catch (err) {
-    toast.error(err.response?.data?.message || 'Submission failed');
-  }
-};
   return (
     <section className="min-h-screen bg-black text-white px-4 py-10 flex items-center justify-center font-orbitron">
       <ToastContainer position="bottom-right" />
@@ -115,9 +118,14 @@ const handleSubmit = async () => {
 
           <button
             onClick={handleSubmit}
-            className="mt-6 bg-cyan-500 hover:bg-purple-400 transition px-6 py-3 rounded-full font-bold text-white border-2 border-cyan-300 shadow-md hover:shadow-glow-cyan"
+            disabled={loading}
+            className={`mt-6 transition px-6 py-3 rounded-full font-bold text-white border-2 border-cyan-300 shadow-md ${
+              loading
+                ? 'bg-gray-500 cursor-not-allowed'
+                : 'bg-cyan-500 hover:bg-purple-400 hover:shadow-glow-cyan'
+            }`}
           >
-            Submit
+            {loading ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </div>
