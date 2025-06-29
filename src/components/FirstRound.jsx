@@ -58,6 +58,7 @@ const handleSubmit = async () => {
   try {
     const res = await axios.post(`${BASE_URL}/api/first`, payload);
     toast.success(res.data.message || 'Submitted successfully');
+     alert("First round submitted successfully")
     setForm({
       teamName: '',
       pptLink: '',

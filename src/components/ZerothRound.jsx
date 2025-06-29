@@ -89,6 +89,10 @@ const ZerothRound = () => {
     try {
       const res = await axios.post(`${BASE_URL}/api/zeroth`, form);
       toast.success(res.data.message || "Registered Successfully!");
+      alert("Registered successfully! welcome")
+
+        
+
 
       setForm({
         teamName: '',

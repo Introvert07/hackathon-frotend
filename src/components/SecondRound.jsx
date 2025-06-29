@@ -26,6 +26,7 @@ const SecondRound = () => {
     try {
       const res = await axios.post(`${BASE_URL}/api/second`, form);
       toast.success(res.data.message || 'Submission successful');
+      alert("Second round submitted successfully")
 
       setForm({
         teamName: '',
