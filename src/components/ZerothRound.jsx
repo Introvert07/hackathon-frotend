@@ -74,6 +74,7 @@ const ZerothRound = () => {
     toast.error("Enrollment number is invalid");
     return;
   }
+  //updated enrollment
 
   // ✅ Also check each team member's enrollment format
   for (let i = 0; i < form.members.length; i++) {
