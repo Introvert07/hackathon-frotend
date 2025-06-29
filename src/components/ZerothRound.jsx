@@ -69,7 +69,7 @@ const ZerothRound = () => {
 
 
   // ✅ Enrollment format must be like 0108ec231014
-  const enrollmentRegex = /^0108[a-z]{2}\d{6}$/;
+  const enrollmentRegex = /^0108[a-zA-Z]{2}\d{6}$/;
   if (!enrollmentRegex.test(form.Enrollment.trim())) {
     toast.error("Enrollment number is invalid");
     return;
