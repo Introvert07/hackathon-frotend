@@ -15,12 +15,12 @@ const rounds = [
     title: 'Round 2 — Prototype Submission',
     description:
       'Submit your GitHub repo (preferred) or ZIP of the project with a demo video. Deployed project is a bonus.',
-    date: '📅 Last Date: 22 July, 11:59 PM',
+    date: '📅 Last Date: 24 July, 11:59 PM',
   },
   {
     title: 'Round 3 — Final Interview',
     description: 'Team interview based on project, clarity, and teamwork.',
-    date: '📅 Interview Date: 26 July',
+    date: '📅 Interview Date: 27 July',
   },
 ];
 
