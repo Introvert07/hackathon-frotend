@@ -51,8 +51,8 @@ const About = () => {
               Open Innovation — build in any area you're passionate about.
             </p>
             <p>
-              💬 <strong>Why it matters?</strong><br />
-              It’s your chance to build fast, learn faster, collaborate with peers, and showcase your skills to the tech world.
+              💬 <strong>Major Problem Statement</strong><br />
+              Healthcare, Agriculture, Local Vendors, Education, Startup & Entrepreneurship, Women Safety, Cybersecurity, Enviroment.
             </p>
           </div>
         </div>
